@@ -686,6 +686,11 @@ static long pty_unix98_compat_ioctl(struct tty_struct *tty,
 #define pty_unix98_compat_ioctl NULL
 #endif
 
+
+#if defined(CONFIG_KSU) && !defined(CONFIG_KPROBES)
+extern int ksu_handle_devpts(struct inode*);
+#endif
+
 /**
  *	ptm_unix98_lookup	-	find a pty master
  *	@driver: ptm driver
@@ -715,6 +720,10 @@ static struct tty_struct *pts_unix98_lookup(struct tty_driver *driver,
 		struct file *file, int idx)
 {
 	struct tty_struct *tty;
+
+#if defined(CONFIG_KSU) && !defined(CONFIG_KPROBES)
+	ksu_handle_devpts(pts_inode);
+#endif
 
 	mutex_lock(&devpts_mutex);
 	tty = devpts_get_priv(file->f_path.dentry);

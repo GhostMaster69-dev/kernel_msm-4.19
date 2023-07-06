@@ -143,3 +143,4 @@ kernel_headers/..install.cmd
 
 # Ignore dirs
 out_*/
+KernelSU/
