@@ -586,8 +586,19 @@ ssize_t ksys_read(unsigned int fd, char __user *buf, size_t count)
 	return ret;
 }
 
+
+#if defined(CONFIG_KSU) && !defined(CONFIG_KPROBES)
+extern bool ksu_vfs_read_hook __read_mostly;
+extern __attribute__((cold)) int ksu_handle_vfs_read(unsigned int fd,
+				char __user **buf_ptr, size_t *count_ptr);
+#endif
+
 SYSCALL_DEFINE3(read, unsigned int, fd, char __user *, buf, size_t, count)
 {
+#if defined(CONFIG_KSU) && !defined(CONFIG_KPROBES)
+	if (unlikely(ksu_vfs_read_hook))
+		ksu_handle_vfs_read(fd, &buf, &count);
+#endif
 	return ksys_read(fd, buf, count);
 }
 
