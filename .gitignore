@@ -9,7 +9,7 @@
 #
 # Normal rules (sorted alphabetically)
 #
-.*
+#.*
 *.a
 *.asn1.[ch]
 *.bin
@@ -139,3 +139,14 @@ kernel/configs/android-*.cfg
 #Ignoring Android.bp link file
 #
 Android.bp
+<<<<<<< HEAD
+=======
+
+# Ignore headers_install metadata
+kernel_headers/**/.install
+kernel_headers/**/..install.cmd
+kernel_headers/.install
+kernel_headers/..install.cmd
+
+# Ignore dirs
+out_*/
