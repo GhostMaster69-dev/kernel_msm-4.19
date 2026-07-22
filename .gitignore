@@ -139,3 +139,9 @@ kernel/configs/android-*.cfg
 #Ignoring Android.bp link file
 #
 Android.bp
+
+# Ignore headers_install metadata
+kernel_headers/**/.install
+kernel_headers/**/..install.cmd
+kernel_headers/.install
+kernel_headers/..install.cmd
