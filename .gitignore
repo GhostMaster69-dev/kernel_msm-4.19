@@ -134,3 +134,9 @@ all.config
 
 # fetched Android config fragments
 kernel/configs/android-*.cfg
+
+# Ignore headers_install metadata
+kernel_headers/**/.install
+kernel_headers/**/..install.cmd
+kernel_headers/.install
+kernel_headers/..install.cmd
